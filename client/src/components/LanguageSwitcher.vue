@@ -2,6 +2,9 @@
   <div class="language-switcher">
     <button
       class="language-button"
+      :title="localeName"
+      aria-haspopup="true"
+      :aria-expanded="isDropdownOpen ? 'true' : 'false'"
       @click="toggleDropdown"
       @blur="handleBlur"
     >
@@ -98,23 +101,28 @@ const selectLanguage = (locale) => {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 0.875rem;
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
   font-family: inherit;
   font-size: 0.875rem;
-  color: #334155;
+  color: #e2e8f0;
 }
 
 .language-button:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.language-button:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
 }
 
 .globe-icon {
-  color: #64748b;
+  color: #cbd5e1;
   flex-shrink: 0;
 }
 
@@ -123,19 +131,19 @@ const selectLanguage = (locale) => {
 }
 
 .chevron {
-  color: #64748b;
+  color: #cbd5e1;
   transition: transform 0.2s ease;
   flex-shrink: 0;
 }
 
 .chevron-open {
-  transform: rotate(180deg);
+  transform: rotate(180deg); /* points down when open, popover opens upward */
 }
 
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.5rem);
-  right: 0;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
   min-width: 160px;
   background: white;
   border: 1px solid #e2e8f0;

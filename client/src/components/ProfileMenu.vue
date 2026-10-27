@@ -2,6 +2,9 @@
   <div class="profile-menu">
     <button
       class="profile-button"
+      :title="currentUser.name"
+      aria-haspopup="true"
+      :aria-expanded="isDropdownOpen ? 'true' : 'false'"
       @click="toggleDropdown"
       @blur="handleBlur"
     >
@@ -125,17 +128,22 @@ const handleLogout = () => {
   align-items: center;
   gap: 0.625rem;
   padding: 0.5rem 0.875rem;
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
   font-family: inherit;
 }
 
 .profile-button:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.profile-button:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
 }
 
 .avatar {
@@ -155,11 +163,18 @@ const handleLogout = () => {
 .profile-name {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #0f172a;
+  color: #f1f5f9;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  text-align: left;
 }
 
 .chevron {
-  color: #64748b;
+  color: #cbd5e1;
+  margin-left: auto;
+  flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
@@ -169,8 +184,8 @@ const handleLogout = () => {
 
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.5rem);
-  right: 0;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
   min-width: 280px;
   background: white;
   border: 1px solid #e2e8f0;
