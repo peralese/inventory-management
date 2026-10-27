@@ -366,6 +366,7 @@ export default {
 .chart-container {
   padding: 2rem 1rem;
   min-height: 300px;
+  overflow-x: auto;
 }
 
 .bar-chart {
@@ -381,6 +382,7 @@ export default {
   flex-direction: column;
   align-items: center;
   flex: 1;
+  min-width: 0;
   max-width: 80px;
 }
 
